@@ -1,2 +1,1 @@
-# Recipe
-Android Recipe app.
+Demonstrate various testing techniques
