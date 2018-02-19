@@ -7,8 +7,8 @@ import java.io.InputStreamReader;
 
 /**
  * Created by Jeffkungu on 14/02/2018.
+ * The Recipe class passes reads from a .txt file present in the asset folder of the app.
  */
-
 public class Recipe {
     private static final String ID_PREFIX = "id=";
     private static final String TITLE_PREFIX = "title=";
