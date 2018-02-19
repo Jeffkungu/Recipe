@@ -1,5 +1,5 @@
 id=chocolate_pudding
-title=Chocolate Pudding
+title=Chocolate_Pudding
 2 tablespoons chocolate
 yolks of 4 eggs
 1 cup sugar
