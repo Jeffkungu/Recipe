@@ -3,11 +3,15 @@ package com.sqisland.tutorial.recipes.data.local;
 import android.content.Context;
 import android.content.res.AssetManager;
 
+import com.sqisland.tutorial.recipes.data.model.Recipe;
+
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Jeffkungu on 16/02/2018.
@@ -16,7 +20,19 @@ import java.util.List;
  */
 
 public class RecipeStore {
+    public final List<Recipe> recipes = new ArrayList<>();
+    private final Map<String, Recipe> map = new HashMap<>();
+
     public RecipeStore(Context context, String directory) {
+        List<InputStream> streams = getAssetStream(context.getAssets(), directory);
+
+        for (InputStream stream : streams) {
+            Recipe recipe = Recipe.readFromSrtream(stream);
+            if (recipe != null) {
+                recipes.add(recipe);
+                map.put(recipe.id, recipe);
+            }
+        }
     }
 
     private static List<InputStream> getAssetStream(AssetManager manager, String directory) {
@@ -33,6 +49,8 @@ public class RecipeStore {
             } catch (IOException e) {
             }
         }
+
+        return streams;
     }
 
     private static String[] getFilenames(AssetManager manager, String directory) {
@@ -44,5 +62,9 @@ public class RecipeStore {
         } catch (IOException e) {
             return new String[0];
         }
+    }
+
+    public Recipe getRecipe(String recipe_id) {
+        return map.get(recipe_id);
     }
 }
