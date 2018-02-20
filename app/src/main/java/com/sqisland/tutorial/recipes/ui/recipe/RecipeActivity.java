@@ -5,9 +5,11 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.sqisland.tutorial.recipes.R;
 import com.sqisland.tutorial.recipes.data.local.RecipeStore;
+import com.sqisland.tutorial.recipes.data.local.SharedPreferencesFavourites;
 import com.sqisland.tutorial.recipes.data.model.Recipe;
 
 /**
@@ -29,14 +31,31 @@ public class RecipeActivity extends AppCompatActivity {
 
         RecipeStore store = new RecipeStore(this, "recipes");
         String id = getIntent().getStringExtra(KEY_ID);
-        Recipe recipe = store.getRecipe(id);
+        final Recipe recipe = store.getRecipe(id);
 
         if (id == null) {
             title.setVisibility(View.GONE);
             description.setText(R.string.recipe_not_found);
             return;
         }
+
+        final SharedPreferencesFavourites favourites = new SharedPreferencesFavourites(this);
+        boolean favourite = favourites.get(recipe.id);
+
         title.setText(recipe.title);
+        title.setSelected(favourite);
+        title.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                boolean result = favourites.toggle(recipe.id);
+                title.setSelected(result);
+                if (result) {
+                    Toast.makeText(getApplicationContext(), "You have selected " + recipe.title + " as favourite", Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(getApplicationContext(), "You have un-selected " + recipe.title, Toast.LENGTH_LONG).show();
+                }
+            }
+        });
         description.setText(recipe.description);
     }
 }
