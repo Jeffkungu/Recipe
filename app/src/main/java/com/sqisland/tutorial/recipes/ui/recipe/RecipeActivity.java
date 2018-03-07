@@ -8,9 +8,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.sqisland.tutorial.recipes.R;
+import com.sqisland.tutorial.recipes.data.local.Favourites;
 import com.sqisland.tutorial.recipes.data.local.RecipeStore;
-import com.sqisland.tutorial.recipes.data.local.SharedPreferencesFavourites;
 import com.sqisland.tutorial.recipes.data.model.Recipe;
+import com.sqisland.tutorial.recipes.injection.RecipeApplication;
 
 /**
  * Created by Jeffkungu on 19/02/2018.
@@ -39,7 +40,8 @@ public class RecipeActivity extends AppCompatActivity {
             return;
         }
 
-        final SharedPreferencesFavourites favourites = new SharedPreferencesFavourites(this);
+        RecipeApplication app = (RecipeApplication) getApplication();
+        final Favourites favourites = app.getFavourites();
         boolean favourite = favourites.get(recipe.id);
 
         title.setText(recipe.title);
