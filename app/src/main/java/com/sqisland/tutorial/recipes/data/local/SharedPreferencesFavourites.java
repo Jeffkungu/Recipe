@@ -7,7 +7,7 @@ import android.content.SharedPreferences;
  * Created by Jeffkungu on 20/02/2018.
  */
 
-public class SharedPreferencesFavourites {
+public class SharedPreferencesFavourites implements Favourites {
     private final SharedPreferences preferences;
 
     public SharedPreferencesFavourites(Context context) {
@@ -18,7 +18,7 @@ public class SharedPreferencesFavourites {
         return  preferences.getBoolean(id, false);
     }
 
-    public void put(String id, boolean favourite) {
+    private void put(String id, boolean favourite) {
         SharedPreferences.Editor editor = preferences.edit();
         if (favourite) {
             editor.putBoolean(id, true);
