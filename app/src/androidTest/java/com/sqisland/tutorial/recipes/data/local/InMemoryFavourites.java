@@ -5,6 +5,8 @@ import java.util.Map;
 
 /**
  * Created by Jeffkungu on 07/03/2018.
+ *
+ * InMemorytFavourites class acts as an In-memory Test Double for the app (Fakes the implementation of the SharedPreference)
  */
 
 public class InMemoryFavourites implements Favourites {
